@@ -1,0 +1,34 @@
+{% extends "base.html" %}{% block title %}PlayGuard · Ranking Fraud Detection{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="pulse"></span> DATA SCIENCE · MACHINE LEARNING</div>
+    <h1>See beyond the<br><span>star rating.</span></h1>
+    <p class="hero-text">Explore Google Play app signals, predict expected ratings, and surface unusual rating–review–install combinations for further investigation.</p>
+    <div class="hero-actions"><a class="btn primary" href="{{ url_for('analyzer') }}">Analyze an app <span>↗</span></a><a class="btn secondary" href="{{ url_for('dashboard') }}">Explore dashboard</a></div>
+    <div class="trust-note"><span class="check">✓</span> Transparent signals · Explainable workflow · Local demo</div>
+  </div>
+  <div class="hero-art">
+    <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+    <div class="app-tile tile-main"><div class="app-symbol">✦</div><div class="tile-label">APP SIGNALS</div><div class="tile-rating">4.8 <span>★</span></div><div class="tile-line"></div><div class="tile-meta"><span>Rating</span><b>High</b></div><div class="tile-meta"><span>Reviews</span><b>Compare</b></div></div>
+    <div class="float-card float-top"><span class="float-dot blue"></span><div><b>Pattern analysis</b><small>Rating · reviews · installs</small></div></div>
+    <div class="float-card float-bottom"><span class="shield">✓</span><div><b>Review signals</b><small>Investigate, don't assume</small></div></div>
+    <div class="art-dots"></div>
+  </div>
+</section>
+<section class="stats-strip">
+  <div><span class="stat-number">{{ total_apps }}</span><span class="stat-label">Apps in demo dataset</span></div>
+  <div><span class="stat-number">{{ categories }}</span><span class="stat-label">App categories</span></div>
+  <div><span class="stat-number">ML</span><span class="stat-label">Rating prediction</span></div>
+  <div><span class="stat-number">IQR</span><span class="stat-label">Outlier analysis</span></div>
+</section>
+<section class="section">
+  <div class="section-heading"><div><div class="eyebrow">THE WORKFLOW</div><h2>From raw data to <span>useful signals.</span></h2></div><p>A practical project pipeline built around the supplied Play Store dataset and preprocessing notebook.</p></div>
+  <div class="feature-grid">
+    <article class="feature-card"><div class="feature-icon">01</div><h3>Prepare the data</h3><p>Clean missing values, duplicates, numeric fields, and unusual values before modelling.</p></article>
+    <article class="feature-card"><div class="feature-icon">02</div><h3>Understand patterns</h3><p>Explore rating distributions and compare reviews and installs across app records.</p></article>
+    <article class="feature-card"><div class="feature-icon">03</div><h3>Predict & investigate</h3><p>Use a saved regression model and simple transparent rules to surface records for review.</p></article>
+  </div>
+</section>
+<section class="notice"><div class="notice-icon">i</div><div><b>Research limitation</b><p>The supplied dataset is a small synthetic practice dataset without verified fraud labels or historical ranking changes. This demo highlights suspicious patterns; it does not confirm fraud.</p></div></section>
+{% endblock %}

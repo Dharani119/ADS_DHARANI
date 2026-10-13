@@ -1,0 +1,29 @@
+{% extends "base.html" %}{% block title %}App Analyzer · PlayGuard{% endblock %}
+{% block content %}<section class="page-wrap">
+  <div class="page-title"><div><div class="eyebrow">GOOGLE PLAY APP CHECK</div><h1>Check an <span>app link</span></h1><p>Paste a Google Play Store URL to retrieve app details and screen for unusual ranking/review patterns.</p></div><span class="status-badge"><span></span> URL analyzer</span></div>
+  <div class="analyzer-layout">
+    <form class="panel analyzer-form" method="post">
+      <div class="panel-head"><div><h2>Google Play Store link</h2><p>Copy the app URL from Google Play</p></div><span class="mini-tag">INPUT</span></div>
+      <label>App URL<input name="play_store_url" type="url" placeholder="https://play.google.com/store/apps/details?id=com.example.app" required value="{{ request.form.get('play_store_url','') }}"></label>
+      <button class="btn primary submit-btn" type="submit">Check app now <span>↗</span></button>
+      {% if error %}<div class="error-box">{{ error }}</div>{% endif %}
+      <div class="signal-box"><span class="signal-mark">i</span><div><b>What this checks</b><p>Public listing details such as rating, review count, installs, and unusual combinations that may merit investigation.</p></div></div>
+    </form>
+    <aside class="result-panel">
+      {% if result %}
+      <div class="result-top"><div class="result-icon">✦</div><span class="mini-tag">SCREENING RESULT</span></div><h2>{{ result.app_name }}</h2><p class="muted">Developer: {{ result.developer }}</p>
+      <div class="signal-box"><span class="signal-mark">{% if 'Potentially suspicious' in result.status %}!{% else %}✓{% endif %}</span><div><b>{{ result.status }}</b>{% for flag in result.flags %}<p>{{ flag }}</p>{% endfor %}</div></div>
+      <div class="result-divider"></div>
+      <div class="result-row"><span>Google Play rating</span><b>{{ result.actual_rating }}/5</b></div>
+      <div class="result-row"><span>Review count</span><b>{{ "{:,}".format(result.reviews) }}</b></div>
+      <div class="result-row"><span>Minimum installs</span><b>{{ result.installs }}</b></div>
+      {% if result.predicted_rating is not none %}<div class="result-row"><span>Model-estimated rating</span><b>{{ result.predicted_rating }}/5</b></div>{% endif %}
+      <div class="result-row"><span>Price</span><b>{{ result.price }}</b></div>
+      <p><a href="{{ result.url }}" target="_blank" rel="noopener noreferrer">Open app listing ↗</a></p>
+      {% else %}
+      <div class="result-placeholder"><div class="placeholder-orb">✦</div><span class="eyebrow">YOUR RESULTS</span><h2>Paste a link.<br>Review the signals.</h2><p>The app listing will be fetched and its visible metrics screened for unusual patterns.</p><div class="placeholder-points"><span>✓ Listing metrics</span><span>✓ Pattern screening</span><span>✓ Explainable flags</span></div></div>
+      {% endif %}
+      <p class="disclaimer"><b>Important:</b> This checks potential ranking/review manipulation patterns only. It is not a malware scanner and cannot prove an app is safe or fraudulent. The demo rules are not validated fraud detection.</p>
+    </aside>
+  </div>
+</section>{% endblock %}

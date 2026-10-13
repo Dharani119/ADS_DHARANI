@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}Dataset · PlayGuard{% endblock %}
+{% block content %}<section class="page-wrap">
+  <div class="page-title"><div><div class="eyebrow">DATA EXPLORER</div><h1>Cleaned <span>dataset</span></h1><p>Preview of the cleaned CSV supplied with this project.</p></div><div class="hero-actions"><a class="btn secondary" href="{{ url_for('download_raw') }}">Raw CSV ↓</a><a class="btn primary" href="{{ url_for('download_cleaned') }}">Cleaned CSV ↓</a></div></div>
+  <div class="table-summary"><b>{{ row_count }} records</b><span>Showing first {{ rows|length }} rows</span></div>
+  <div class="table-wrap"><table><thead><tr>{% for c in columns %}<th>{{ c }}</th>{% endfor %}</tr></thead><tbody>{% for row in rows %}<tr>{% for c in columns %}<td>{{ row.get(c,'') }}</td>{% endfor %}</tr>{% endfor %}</tbody></table></div>
+  <div class="notice"><div class="notice-icon">i</div><div><b>Data source note</b><p>The included raw file is the supplied practice dataset and is synthetic. Replace it with a sourced real-world dataset for stronger research claims.</p></div></div>
+</section>{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}About · PlayGuard{% endblock %}
+{% block content %}<section class="page-wrap narrow">
+  <div class="eyebrow">ABOUT THE PROJECT</div><h1>Ranking Fraud Detection<br><span>in Google Play Store Apps</span></h1>
+  <p class="lead">A student data science project exploring app metadata, rating prediction, and unusual rating/review/install combinations.</p>
+  <div class="panel prose"><h2>Proposed system</h2><p>The system loads a Play Store app dataset, preprocesses missing values and inconsistent numeric fields, explores app statistics, and applies a Multiple Linear Regression model to estimate app ratings. Transparent heuristic rules highlight a small set of unusual patterns for human review.</p>
+  <h2>Project objectives</h2><ul><li>Prepare app metadata for analysis.</li><li>Study ratings, reviews, installs, price, and size.</li><li>Train and evaluate a rating-regression model with R², MSE, and RMSE.</li><li>Provide an interactive interface for app profile analysis.</li><li>Clearly document the limitations of fraud inference.</li></ul>
+  <h2>Limitations</h2><p>The included data is a tiny synthetic practice sample. It has no verified fraud labels, no review timestamps, and no historical ranking changes. The tool cannot confirm fraud. A stronger study needs real sourced data and validation labels or suitable time-series/review-level features.</p>
+  <h2>Technology stack</h2><p>Python · Pandas · NumPy · scikit-learn · Flask · HTML · CSS · JavaScript · Joblib/Pickle</p></div>
+</section>{% endblock %}

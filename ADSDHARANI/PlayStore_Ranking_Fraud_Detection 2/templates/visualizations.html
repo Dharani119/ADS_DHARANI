@@ -1,0 +1,16 @@
+{% extends "base.html" %}{% block title %}Model Results · PlayGuard{% endblock %}
+{% block content %}<section class="page-wrap">
+  <div class="page-title"><div><div class="eyebrow">MODEL PERFORMANCE</div><h1>Evaluation & <span>visual insights</span></h1><p>Review the regression metrics recorded during model training.</p></div><a class="btn secondary" href="{{ url_for('download_cleaned') }}">Download cleaned CSV ↓</a></div>
+  <div class="metric-grid three">
+    <div class="metric-card"><span class="metric-label">R² score</span><strong>{{ "%.3f"|format(metrics.get('r2') or 0) }}</strong><span class="metric-foot">Explained variance on holdout sample</span></div>
+    <div class="metric-card"><span class="metric-label">MSE</span><strong>{{ "%.3f"|format(metrics.get('mse') or 0) }}</strong><span class="metric-foot">Mean squared error</span></div>
+    <div class="metric-card"><span class="metric-label">RMSE</span><strong>{{ "%.3f"|format(metrics.get('rmse') or 0) }}</strong><span class="metric-foot">Error in rating-point units</span></div>
+  </div>
+  <div class="two-col">
+    <article class="panel"><div class="panel-head"><div><h2>Rating distribution</h2><p>Counts of recorded rating values</p></div></div><div class="chart-wrap"><canvas id="ratingChart"></canvas></div><script>window.pgRatings={{ charts.get('ratings', {})|tojson }};</script></article>
+    <article class="panel"><div class="panel-head"><div><h2>Model configuration</h2><p>Saved model pipeline</p></div><span class="mini-tag">PKL</span></div>
+      <div class="config-list"><div><span>Algorithm</span><b>Multiple Linear Regression</b></div><div><span>Target</span><b>App rating</b></div><div><span>Features</span><b>Log reviews, log installs, price, size</b></div><div><span>Training rows</span><b>{{ metrics.get('rows_used',0) }}</b></div><div><span>Train / test</span><b>{{ metrics.get('train_rows',0) }} / {{ metrics.get('test_rows',0) }}</b></div></div>
+    </article>
+  </div>
+  <div class="notice"><div class="notice-icon">i</div><div><b>Interpret metrics carefully</b><p>The dataset is tiny and synthetic. R², MSE, and RMSE are included to demonstrate evaluation code, not to claim reliable performance on real Play Store apps.</p></div></div>
+</section>{% endblock %}

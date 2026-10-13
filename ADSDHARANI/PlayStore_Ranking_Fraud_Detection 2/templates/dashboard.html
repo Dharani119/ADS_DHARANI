@@ -1,0 +1,17 @@
+{% extends "base.html" %}{% block title %}Dashboard · PlayGuard{% endblock %}
+{% block content %}<section class="page-wrap">
+  <div class="page-title"><div><div class="eyebrow">OVERVIEW</div><h1>App intelligence <span>dashboard</span></h1><p>Quick view of the current dataset and app-rating distribution.</p></div><a class="btn primary" href="{{ url_for('analyzer') }}">Open analyzer ↗</a></div>
+  <div class="metric-grid">
+    <div class="metric-card"><span class="metric-label">App records</span><strong>{{ stats.get('apps',0) }}</strong><span class="metric-foot">Rows in cleaned CSV</span></div>
+    <div class="metric-card"><span class="metric-label">Average rating</span><strong>{{ stats.get('avg_rating',0) }}</strong><span class="metric-foot">Out of 5.0 stars</span></div>
+    <div class="metric-card"><span class="metric-label">Review count total</span><strong>{{ "{:,}".format(stats.get('total_reviews',0)) }}</strong><span class="metric-foot">Across included rows</span></div>
+    <div class="metric-card"><span class="metric-label">Categories</span><strong>{{ stats.get('categories',0) }}</strong><span class="metric-foot">Distinct app categories</span></div>
+  </div>
+  <div class="two-col">
+    <article class="panel"><div class="panel-head"><div><h2>Category distribution</h2><p>Top categories in the supplied data</p></div><span class="mini-tag">DATASET</span></div><div class="chart-wrap"><canvas id="categoryChart"></canvas></div><script>window.pgCategories={{ categories|tojson }};</script></article>
+    <article class="panel"><div class="panel-head"><div><h2>Highest-rated apps</h2><p>Sorted by recorded rating</p></div><span class="mini-tag">RATINGS</span></div>
+      {% if top_apps %}<div class="app-list">{% for app in top_apps %}<div class="app-row"><div class="app-avatar">{{ app.App[:1]|upper }}</div><div class="app-info"><b>{{ app.App }}</b><small>Recorded app rating</small></div><span class="rating-pill">★ {{ "%.1f"|format(app.Rating) }}</span></div>{% endfor %}</div>{% else %}<p>No app data available.</p>{% endif %}
+    </article>
+  </div>
+  <div class="notice"><div class="notice-icon">!</div><div><b>Small sample warning</b><p>These summary statistics describe only the provided practice data and should not be generalized to the full Play Store.</p></div></div>
+</section>{% endblock %}

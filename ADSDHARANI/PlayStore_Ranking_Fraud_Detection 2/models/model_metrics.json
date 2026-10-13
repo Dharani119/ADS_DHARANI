@@ -1,0 +1,16 @@
+{
+  "r2": 0.14366945258914443,
+  "mse": 0.04589931734122188,
+  "rmse": 0.2142412596612097,
+  "rows_used": 18,
+  "train_rows": 13,
+  "test_rows": 5,
+  "features": [
+    "Log_Reviews",
+    "Log_Installs",
+    "Price",
+    "Size_MB"
+  ],
+  "target": "Rating",
+  "note": "Demo metrics from a very small synthetic practice dataset; not evidence of real-world model performance."
+}
